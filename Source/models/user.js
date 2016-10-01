@@ -21,7 +21,7 @@ var UserSchema = new Schema({
 	FirstName:{
 		type:String,
 	},
-	
+
 	LastName:String,
 	email:{
 		type:String,
@@ -84,8 +84,8 @@ exports.userSignUp=function(req,res){
 			LastName:req.body.LastName,
 	email:req.body.email,
 	Online:false,
-	
-		
+
+
 
 		});
 		newUser.save(function(err){
@@ -151,7 +151,7 @@ exports.findallusersonline=function(cb){
 
 exports.saveNewActiveUser=function(activeusername,cb){
 	addUser.findOne({
-            'name': activeusername, 
+            'name': activeusername,
         }, function(err, user) {
             if (err) {
                 return cb(err);
@@ -171,10 +171,10 @@ exports.saveNewActiveUser=function(activeusername,cb){
             }
         });
   }
-	
+
 exports.addOfflineUser=function(offlineusername,cb){
 	addUser.findOne({
-            'Username': offlineusername, 
+            'Username': offlineusername,
         }, function(err, user) {
             if (err) {
                 return cb(err);
@@ -206,5 +206,3 @@ getToken = function (headers) {
     return null;
   }
 };
-
-
