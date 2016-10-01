@@ -15,11 +15,14 @@ app.controller('DashboardController',['$scope','$http','$location','AuthService'
 		});
 	};
 	$scope.findusers();
-	$scope.startVideo=function(){
-		window.location="https://localhost:9001/demos/Video-Conferencing.html?roomid="+$scope.userid;
+	$scope.redirect=function(name){
+		data={
+			name:name,
+			user:$scope.userid
+		}
+		$scope.socket.emit('videocallnotify',data);
+		window.location="https://localhost:9001/demos/Video-Conferencing.html?roomid="+name;
 	}
-	
-	
 }]);
 
 

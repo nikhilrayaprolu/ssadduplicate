@@ -22,17 +22,24 @@ app.controller('MainController',['$location','$scope','$http','$routeParams','Au
 	});
 	socket.on('usersonline',function(data){
 		$scope.usersonline=data;
+		$scope.$digest();
 		console.log(data);
 	})
 
 	socket.on('online',function(data){
 		$scope.usersonline[data]=true;
+		$scope.$digest();
 		console.log(data);
 	})
 
 	socket.on('offline',function(data){
 		$scope.usersonline[data]=false;
+		$scope.$digest();
 		console.log(data);
+	})
+	socket.on('notification',function(data){
+		console.log("success");
+		alert(data.msg);
 	})
 	$scope.LogOut=function(){
 		AuthService.logout();
