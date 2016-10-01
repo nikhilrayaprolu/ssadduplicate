@@ -38,7 +38,10 @@ io.sockets.on('connection', function(socket) {
     		}else{
     			io.to(socket.id).emit('usersonline', data);
     		}
+            socket.join(username);
+            console.log(username+"initial connection")
     	});
+
     	
     	socket['username']=username;
     	console.log(username);
@@ -46,20 +49,26 @@ io.sockets.on('connection', function(socket) {
     	addUser.saveNewActiveUser(socket['username'],function(err,user){
     		if(err){
     			console.log(err);
-    			socket.emit('online',socket['username']);
+    			io.sockets.emit('online',socket['username']);
     		}else{
     			console.log(user);
-    			socket.emit('online',socket['username']);
+    			io.sockets.emit('online',socket['username']);
     		}
     	})
 	});
+    socket.on('videocallnotify',function(data){
+        
+        console.log(data);
+            io.sockets.in(data.name).emit('notification',{msg:data.user+"is waiting in your room"});
+            console.log("came here");
+    })
     socket.on('disconnect',function(){
     	addUser.addOfflineUser(socket['username'],function(err,user){
     		if(err){
     			console.log(err);
-    			socket.emit('offline',socket['username']);
+    			io.sockets.emit('offline',socket['username']);
     		}else{
-    			socket.emit('offline',socket['username']);
+    			io.sockets.emit('offline',socket['username']);
     		}
     	})
         })
@@ -91,8 +100,11 @@ app.get('/auth/google/callback',
     res.redirect('/');
   });
 app.get('/users',addUser.findallusers);
+app.get('/',function(req,res){
+  res.sendfile(__dirname + '/public/html/index.html');  
+})
 app.get('*', function (req, res) {
-  res.sendfile(__dirname + '/public/html/index.html');
+  res.sendfile(__dirname + '/public/html/indexangular.html');
 });
 
 

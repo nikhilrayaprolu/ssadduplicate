@@ -1,0 +1,81 @@
+html{
+	text-align: center;
+	background-color:#EFEFEF;
+
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+
+html.stopwatch-mode header .stopwatch,
+ {
+	background-color:rgba(255,255,255,0.2);
+	pointer-events:none;
+}
+
+html.stopwatch-mode .switch-clocks{
+	background-color: #607D8B;
+}
+
+html.stopwatch-mode .app{
+	transform: translate(-100vw);
+	-webkit-transform: translate(-100vw);
+}
+
+
+
+
+.clock {
+	position: relative;
+	height: 100px;
+	max-width: 700px;
+	width: 45%;
+	display: block;
+	
+	float:right;
+	font-size: 70px;
+	color: #0277BD;
+	text-align: center;
+	
+
+	background-color: #fff;
+	border-radius: 10px;
+
+	transition: all 0.4s ease-in, box-shadow 0.2s;
+}
+
+.clock.inactive {
+	color: #9e9e9e;
+}
+
+.clock .overlay{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+}
+
+.switch label .lever:after{
+	background-color:#fff;
+}
+
+
+.stopwatch .clock{
+	max-width: 800px;
+}
+
+@media (max-width: 800px){
+
+
+	.clock{
+		font-size: 30px;
+		height: 90px;
+		line-height: 180px;
+		margin-top:20px;
+	}
+
+
+}
+

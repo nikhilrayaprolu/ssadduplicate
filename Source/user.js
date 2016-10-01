@@ -73,7 +73,6 @@ UserSchema.methods.comparePassword = function(passw,cb){
 
 };
 var addUser=mongoose.model('addUser',UserSchema);
-
 exports.userSignUp=function(req,res){
 	if(!req.body.name || !req.body.password){
 		res.json({success:false,msg:'Please pass name and password.'});
@@ -161,12 +160,13 @@ exports.saveNewActiveUser=function(activeusername,cb){
             if (!user) {
                 console.log("wrong user")
             } else {
+            	console.log("changing the user");
                 //found user. Return
-                user.online=true;
-                user.save(function(err){
-
+                user.Online=true;
+                user.save(function(err,userfinal){
+                	console.log(userfinal);
                 	if(err) console.log(err);
-                	return cb(err,user)
+                	return cb(err,userfinal)
                 })
                 return cb(err, user);
             }
@@ -175,21 +175,24 @@ exports.saveNewActiveUser=function(activeusername,cb){
 	
 exports.addOfflineUser=function(offlineusername,cb){
 	addUser.findOne({
-            'Username': offlineusername, 
+            'name': offlineusername, 
         }, function(err, user) {
             if (err) {
                 return cb(err);
             }
             //No user was found... so create a new user with values from Facebook (all the profile. stuff)
             if (!user) {
+            	console.log(offlineusername);
+            	console.log("yes I am here");
             console.log("wrong user")
             } else {
+
                 //found user. Return
-                user.online=false;
-                user.save(function(err){
+                user.Online=false;
+                user.save(function(err,userfinal){
 
                 	if(err) console.log(err);
-                	return cb(err,user)
+                	return cb(err,userfinal)
                 })
                 return cb(err, user);
             }
